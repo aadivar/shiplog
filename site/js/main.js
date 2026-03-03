@@ -122,14 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Copy to Clipboard ---
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      let text;
-      if (btn.hasAttribute('data-copy-multiline')) {
-        const container = btn.parentElement;
-        const lines = container.querySelectorAll('.install-line');
-        text = Array.from(lines).map(l => l.textContent.trim()).join('\n');
-      } else {
-        text = btn.getAttribute('data-copy') || '';
-      }
+      const text = btn.getAttribute('data-copy') || '';
       navigator.clipboard.writeText(text).then(() => {
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
