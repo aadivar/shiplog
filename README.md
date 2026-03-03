@@ -18,12 +18,10 @@ Shiplog automatically:
 
 ## Install
 
-```bash
-# From GitHub
-claude plugin install aadivar/shiplog
+Run inside a Claude Code session:
 
-# Or scoped to a project
-claude plugin install aadivar/shiplog --scope project
+```
+/install-plugin aadivar/shiplog
 ```
 
 ## Quick Start
