@@ -407,10 +407,6 @@ Shiplog: Starting Sprint 3
 
 | Metric | Target (6 months post-launch) |
 |--------|-------------------------------|
-| Marketplace installs | 1,000+ |
-| Weekly active projects | 500+ |
-| Avg sessions per project using Shiplog | 10+ |
-| User retention (still using after 30 days) | 40%+ |
 | GitHub stars | 500+ |
 | Community agents published | 10+ |
 
