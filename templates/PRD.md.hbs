@@ -5,6 +5,7 @@
 **Stack**: {{#each stack}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
 **Created**: {{date}}
 **Status**: In Progress
+**Tracking**: {{trackingMode}}
 
 ---
 
@@ -12,7 +13,10 @@
 
 | ID | Feature | Status | Sprint | Notes |
 |----|---------|--------|--------|-------|
+{{#if vibeMode}}
+{{else}}
 | F001 | | not-started | | |
+{{/if}}
 
 ### Status Legend
 - `not-started` — Not yet begun
@@ -20,6 +24,7 @@
 - `done` — Complete and working
 - `blocked` — Waiting on something
 
+{{#unless vibeMode}}
 ---
 
 ## Phases
@@ -32,7 +37,8 @@
 
 ### Phase 3: Advanced
 - [ ] _Add your advanced features here_
+{{/unless}}
 
 ---
 
-_This file is automatically updated by the Shiplog PRD agent. Manual edits are preserved._
+_This file is automatically updated by the Shiplog PRD agent.{{#if vibeMode}} Features are auto-discovered from your commits — just build and Shiplog will track what you ship.{{/if}} Manual edits are preserved._

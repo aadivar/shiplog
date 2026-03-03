@@ -29,14 +29,20 @@ Use the `AskUserQuestion` tool to collect project details. Ask these questions:
 - Present the auto-detected stack and ask the user to confirm or modify
 - Options: Confirm detected stack / Modify
 
-**Question 3 — Agent model:**
+**Question 3 — Tracking mode:**
+- Ask: "How do you want to track features?"
+- Options:
+  - `Vibe mode` (Recommended) — Just build. Shiplog auto-discovers features from your commits and builds the PRD for you as you go. No upfront planning needed.
+  - `Planned mode` — Define features upfront in the PRD, then build. Shiplog tracks status as you work.
+
+**Question 4 — Agent model:**
 - Ask: "Which model should background agents use?"
 - Options:
   - `haiku` (Recommended) — Fastest and cheapest, great for append-only agent work
   - `sonnet` — More capable, slightly higher cost
   - `opus` — Most capable, highest cost
 
-**Question 4 — Background agents:**
+**Question 5 — Background agents:**
 - Ask: "Which background agents do you want to enable?"
 - Multi-select options (all enabled by default):
   - Specs Agent — Logs architecture decisions automatically
@@ -57,10 +63,12 @@ docs/
 Using the collected info, populate and write these files by reading each template from `templates/` and replacing the Handlebars placeholders:
 
 1. **`.shiplog/config.json`** — from `templates/config.json.hbs`
-   - Replace `{{projectName}}`, `{{projectDescription}}`, `{{stack}}`, `{{agentModel}}`, `{{agents.*}}`
+   - Replace `{{projectName}}`, `{{projectDescription}}`, `{{stack}}`, `{{agentModel}}`, `{{agents.*}}`, `{{trackingMode}}`
 
 2. **`docs/PRD.md`** — from `templates/PRD.md.hbs`
    - Replace `{{projectName}}`, `{{projectDescription}}`, `{{stack}}`, `{{date}}`
+   - If **vibe mode**: use the vibe mode version (no empty feature rows, no phases, includes auto-discovery note)
+   - If **planned mode**: use the planned version (empty F001 row, phase placeholders)
 
 3. **`docs/SPECS.md`** — from `templates/SPECS.md.hbs`
    - Replace `{{projectName}}`, `{{stack}}`, `{{date}}`
@@ -82,6 +90,26 @@ Set `{{date}}` to today's date in `YYYY-MM-DD` format.
 ### Step 7: Confirm setup
 Display a summary of what was created:
 
+For **vibe mode**:
+```
+Shiplog initialized in vibe mode!
+
+Created:
+  docs/PRD.md         — Feature roadmap (auto-populated as you build)
+  docs/SPECS.md       — Architecture decisions log
+  docs/SECURITY.md    — Security review trail
+  docs/PROGRESS.md    — Session tracker
+  docs/features/      — Per-feature details
+  .shiplog/config.json — Plugin settings
+  Updated CLAUDE.md   — Added orchestration section
+
+Agent model: haiku
+Enabled agents: specs, prd, security, memory
+
+Just start building — Shiplog will discover and track your features automatically!
+```
+
+For **planned mode**:
 ```
 Shiplog initialized!
 

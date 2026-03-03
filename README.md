@@ -4,6 +4,8 @@
 
 **Shiplog** is a Claude Code plugin that gives every project persistent memory, automatic progress tracking, and background quality agents — so no session starts cold and no decision is forgotten.
 
+**No planning required.** Just build. Shiplog watches your commits and auto-discovers features, logs architecture decisions, reviews security, and tracks patterns — all in the background.
+
 ## The Problem
 
 Claude Code sessions are stateless. Over 50+ sessions, you lose context: what was built, what decisions were made, what's left, what security issues exist. You re-explain the project every time, waste tokens, and forget past decisions.
@@ -11,7 +13,7 @@ Claude Code sessions are stateless. Over 50+ sessions, you lose context: what wa
 ## The Solution
 
 Shiplog automatically:
-1. **Initializes** a structured docs system on any project (PRD, specs, security log, progress tracker)
+1. **Auto-discovers features** from your commits — no upfront PRD needed (vibe mode)
 2. **Reads** progress at session start so Claude picks up where you left off
 3. **Launches background agents** after each commit to update specs, PRD status, security reviews, and memory
 4. **Maintains** code pattern docs so Claude writes consistent code across sessions
@@ -28,10 +30,11 @@ Run inside a Claude Code session:
 ## Quick Start
 
 ```bash
-# Initialize on your project
+# Initialize on your project (pick vibe mode — no planning needed)
 /shiplog init
 
-# Create your first feature
+# Just start building. Features are auto-discovered from your commits.
+# Or define one manually:
 /shiplog feature "user authentication"
 
 # Check project status anytime
@@ -63,6 +66,17 @@ Sprint: 2 | Active: F009 (in-progress) | 12/24 features done
   Last security review: clean (2026-03-03)
 ```
 
+## Tracking Modes
+
+Choose during `/shiplog init`:
+
+| Mode | How it works | Best for |
+|------|-------------|----------|
+| **Vibe mode** (default) | Just build. PRD agent auto-discovers features from your commits. No upfront planning. | Solo devs, prototyping, hackathons, exploration |
+| **Planned mode** | Define features in PRD first, then build. Agent tracks status as you go. | Teams, client projects, structured sprints |
+
+Both modes get the same background agents. You can always add manual features with `/shiplog feature` in either mode.
+
 ## Background Agents
 
 After each git commit, Shiplog silently runs 4 background agents:
@@ -70,7 +84,7 @@ After each git commit, Shiplog silently runs 4 background agents:
 | Agent | What it does | Output |
 |-------|-------------|--------|
 | **Specs** | Logs architecture decisions automatically | `docs/SPECS.md` |
-| **PRD** | Updates feature status from code changes | `docs/PRD.md` |
+| **PRD** | Auto-discovers features from diffs + updates statuses | `docs/PRD.md` |
 | **Security** | Reviews for OWASP Top 10, hardcoded secrets, injection risks | `docs/SECURITY.md` |
 | **Memory** | Maintains code patterns and project memory | Claude memory files |
 

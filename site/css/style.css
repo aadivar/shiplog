@@ -178,6 +178,11 @@ strong {
   margin-bottom: 3rem;
 }
 
+.tagline-vibe {
+  color: var(--text-accent);
+  font-weight: 400;
+}
+
 .hero-install {
   margin-bottom: 4rem;
 }

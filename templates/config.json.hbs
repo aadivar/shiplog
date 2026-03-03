@@ -3,7 +3,8 @@
   "project": {
     "name": "{{projectName}}",
     "description": "{{projectDescription}}",
-    "stack": [{{#each stack}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}]
+    "stack": [{{#each stack}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}],
+    "trackingMode": "{{trackingMode}}"
   },
   "agents": {
     "model": "{{agentModel}}",
