@@ -102,6 +102,7 @@ Agents run in the background with `run_in_background: true` — they never inter
 | `/shiplog config` | View/edit Shiplog configuration |
 | `/shiplog agent <name>` | Create a custom background agent |
 | `/shiplog agent list` | List all agents (built-in + custom) |
+| `/shiplog upgrade` | Pull latest version from GitHub |
 
 ## Project Structure
 
