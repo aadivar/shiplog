@@ -124,10 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       let text;
       if (btn.hasAttribute('data-copy-multiline')) {
-        const lines = btn.closest('.install-box').querySelectorAll('.install-line');
-        text = Array.from(lines).map(l => l.textContent).join('\n');
+        const container = btn.parentElement;
+        const lines = container.querySelectorAll('.install-line');
+        text = Array.from(lines).map(l => l.textContent.trim()).join('\n');
       } else {
-        text = btn.dataset.copy;
+        text = btn.getAttribute('data-copy') || '';
       }
       navigator.clipboard.writeText(text).then(() => {
         btn.textContent = 'Copied!';
