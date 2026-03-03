@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "shiplog",
+  "owner": {
+    "name": "Sumedha",
+    "email": ""
+  },
+  "plugins": [
+    {
+      "name": "shiplog",
+      "source": "./",
+      "description": "Automatic project tracking, progress management, and background quality agents for Claude Code",
+      "version": "1.0.0",
+      "author": {
+        "name": "Sumedha"
+      },
+      "repository": "https://github.com/aadivar/shiplog",
+      "license": "MIT",
+      "keywords": ["project-management", "progress-tracking", "security-review", "background-agents"]
+    }
+  ]
+}

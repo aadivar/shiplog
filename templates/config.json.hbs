@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "{{projectName}}",
+    "description": "{{projectDescription}}",
+    "stack": [{{#each stack}}"{{this}}"{{#unless @last}}, {{/unless}}{{/each}}]
+  },
+  "agents": {
+    "model": "{{agentModel}}",
+    "specs": { "enabled": {{agents.specs}} },
+    "prd": { "enabled": {{agents.prd}} },
+    "security": { "enabled": {{agents.security}} },
+    "memory": { "enabled": {{agents.memory}} },
+    "custom": []
+  },
+  "docs": {
+    "path": "docs",
+    "progressFile": "PROGRESS.md",
+    "prdFile": "PRD.md",
+    "specsFile": "SPECS.md",
+    "securityFile": "SECURITY.md",
+    "featuresDir": "features"
+  },
+  "orchestration": {
+    "readProgressOnStart": true,
+    "launchAgentsAfterTask": true,
+    "triggerMethod": "hooks+claude.md",
+    "maxParallelAgents": 3
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Shiplog",
+    "description": "Automatic project tracking, progress management, and background quality agents for Claude Code",
+    "stack": ["Shell", "Markdown"]
+  },
+  "agents": {
+    "model": "haiku",
+    "specs": { "enabled": true },
+    "prd": { "enabled": true },
+    "security": { "enabled": true },
+    "memory": { "enabled": true }
+  },
+  "docs": {
+    "path": "docs",
+    "progressFile": "PROGRESS.md",
+    "prdFile": "PRD.md",
+    "specsFile": "SPECS.md",
+    "securityFile": "SECURITY.md",
+    "featuresDir": "features"
+  },
+  "orchestration": {
+    "readProgressOnStart": true,
+    "launchAgentsAfterTask": true,
+    "triggerMethod": "hooks+claude.md",
+    "maxParallelAgents": 3
+  }
+}

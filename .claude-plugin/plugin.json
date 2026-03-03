@@ -1,0 +1,17 @@
+{
+  "name": "shiplog",
+  "version": "1.0.0",
+  "description": "Automatic project tracking, progress management, and background quality agents for Claude Code",
+  "author": {
+    "name": "Sumedha"
+  },
+  "repository": "https://github.com/aadivar/shiplog",
+  "license": "MIT",
+  "keywords": [
+    "project-management",
+    "progress-tracking",
+    "security-review",
+    "background-agents",
+    "memory"
+  ]
+}

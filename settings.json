@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "allowBash": [
+      "git diff*",
+      "git log*",
+      "git status",
+      "bash */detect-stack.sh",
+      "bash */validate-config.sh",
+      "mkdir -p docs*",
+      "mkdir -p .shiplog*"
+    ]
+  }
+}
