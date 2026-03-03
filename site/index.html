@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shiplog — Your project remembers everything</title>
+  <meta name="description" content="A Claude Code plugin for automatic project tracking, background security reviews, architecture logging, and persistent memory across sessions.">
+  <meta property="og:title" content="Shiplog — Your project remembers everything">
+  <meta property="og:description" content="Automatic project tracking and background quality agents for Claude Code.">
+  <meta property="og:url" content="https://aadivar.github.io/shiplog/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle" aria-label="Toggle light/dark theme">
+    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <!-- ============================================ -->
+  <!-- HERO -->
+  <!-- ============================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">SHIPLOG</h1>
+      <p class="hero-tagline reveal">Your project remembers everything.<br>You just forgot to tell it to.</p>
+      <div class="hero-install reveal">
+        <div class="hero-actions">
+          <div class="install-box">
+            <span class="install-prompt">$</span>
+            <span class="install-text">claude plugin install aadivar/shiplog</span>
+            <button class="copy-btn" data-copy="claude plugin install aadivar/shiplog" aria-label="Copy install command">Copy</button>
+          </div>
+          <a href="https://github.com/aadivar/shiplog" target="_blank" rel="noopener" class="github-link" aria-label="View on GitHub">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="scroll-hint reveal" aria-hidden="true">
+        <span>Scroll to begin</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 1: "Where was I?" -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">You open Claude Code on Monday morning.<br>You stare at the cursor.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;Where was I?&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">claude</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="prompt">$</span> <span class="command">claude</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="accent">Shiplog: Sprint 2 | Feature F009 (in-progress) | 12/24 features done</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line">I see we're on Sprint 2, working on the billing module.</div>
+          <div class="term-line">Last session we finished the invoice list view (F008).</div>
+          <div class="term-line">Let me pick up where we left off...</div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal"><code>PROGRESS.md</code> is read at the start of every session. Automatically.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 2: "We decided this... when?" -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">Three weeks in. Forty commits deep.<br>Someone asks why you picked Postgres over SQLite.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;We decided this... when?&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">docs/SPECS.md</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="path">## Architecture Decisions</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="comment">| Date       | Decision                        | Rationale                            |</span></div>
+          <div class="term-line"><span class="comment">|------------|--------------------------------|--------------------------------------|</span></div>
+          <div class="term-line">| <span class="muted">2026-02-14</span> | Postgres over SQLite            | <span class="info">Concurrent writes + JSON support</span>  |</div>
+          <div class="term-line">| <span class="muted">2026-02-18</span> | JWT with refresh token rotation | <span class="info">Stateless auth, revocation via DB</span> |</div>
+          <div class="term-line">| <span class="muted">2026-02-21</span> | Zod for runtime validation      | <span class="info">TypeScript-first, composable</span>      |</div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal">The <strong>Specs Agent</strong> logs every architecture decision after each commit. You never wrote any of this.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 3: "Is this secure?" -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">You ship the auth endpoint at 11 PM.<br>The tests pass. The types check.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;Is this secure? ...I think so.&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">docs/SECURITY.md</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="path">## Review Log</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="comment">| Date       | Session        | Findings                          | Severity |</span></div>
+          <div class="term-line"><span class="comment">|------------|---------------|-----------------------------------|----------|</span></div>
+          <div class="term-line">| <span class="muted">2026-02-21</span> | Auth endpoints | <span class="warning">Missing rate limiting on /login</span>   | <span class="warning">MED</span>      |</div>
+          <div class="term-line">| <span class="muted">2026-02-21</span> | Auth endpoints | <span class="danger">Password reset token lacks expiry</span> | <span class="danger">HIGH</span>     |</div>
+          <div class="term-line">| <span class="muted">2026-02-22</span> | Auth fix       | <span class="success">Rate limiting added, TTL set</span>      | <span class="success">CLEAN</span>    |</div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal">The <strong>Security Agent</strong> reviews every commit against the OWASP Top 10. Silently. In the background.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 4: "This looks different" -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">Session 12. The error handling looks<br>completely different from session 4.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;This looks different from last time.&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">~/.claude/projects/.../MEMORY.md</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="path">## Code Conventions</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="accent">-</span> Error handling: Always use <span class="info">AppError</span> class with code + message</div>
+          <div class="term-line"><span class="accent">-</span> API responses: <span class="info">{ success: boolean, data?: T, error?: string }</span></div>
+          <div class="term-line"><span class="accent">-</span> File naming: <span class="info">kebab-case</span> for files, <span class="info">PascalCase</span> for components</div>
+          <div class="term-line"><span class="accent">-</span> Database: All queries via <span class="info">repository pattern</span>, no raw SQL in routes</div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal">The <strong>Memory Agent</strong> tracks your patterns and conventions. Claude writes consistent code across every session.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 5: "How far along?" -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">The PM asks for a status update.<br>You open six tabs. Scroll through PRs.<br>Count commits on your fingers.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;How far along are we, really?&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">/shiplog status</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="prompt">$</span> <span class="command">/shiplog status</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="accent">Shiplog Status — Acme SaaS</span></div>
+          <div class="term-line"><span class="muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span></div>
+          <div class="term-line">Sprint: <span class="info">2</span> | Active: <span class="info">F009</span> (in-progress) | <span class="success">12/24</span> features done</div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line">  Phase 1 (Foundation): <span class="progress-bar"><span class="progress-fill" data-width="100"></span></span> <span class="success">100%</span></div>
+          <div class="term-line">  Phase 2 (Core):       <span class="progress-bar"><span class="progress-fill" data-width="67"></span></span> <span class="warning"> 67%</span></div>
+          <div class="term-line">  Phase 3 (Advanced):   <span class="progress-bar"><span class="progress-fill" data-width="0"></span></span> <span class="muted">  0%</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line">  Security: Last review <span class="muted">2026-03-03</span> — <span class="success">CLEAN</span></div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal">One command. Your entire project at a glance.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 6: "Let me explain everything. Again." -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="frustration-section">
+    <div class="frustration-content">
+      <div class="frustration-text reveal">
+        <p class="frustration-prose">New session. The context is gone.<br>You paste the README. Describe the stack.<br>Re-explain the folder structure.</p>
+        <p class="frustration-quote typewriter" data-text="&quot;Let me explain everything. Again.&quot;"></p>
+      </div>
+      <div class="terminal terminal-reveal terminal-glow">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">Background Agents</span>
+        </div>
+        <div class="terminal-body">
+          <div class="term-line"><span class="muted">[Session starts]</span></div>
+          <div class="term-line"><span class="accent">></span> Reading docs/PROGRESS.md...</div>
+          <div class="term-line"><span class="accent">></span> Loading project context...</div>
+          <div class="term-line"><span class="accent">></span> <span class="success">Shiplog: Sprint 2 | F009 (in-progress) | 12/24 done</span></div>
+          <div class="term-line">&nbsp;</div>
+          <div class="term-line"><span class="muted">[After commit]</span></div>
+          <div class="term-line"><span class="accent">></span> Launching background agents...</div>
+          <div class="term-line">  <span class="success">&#10003;</span> Specs Agent     <span class="muted">→ docs/SPECS.md updated</span></div>
+          <div class="term-line">  <span class="success">&#10003;</span> PRD Agent       <span class="muted">→ F009 status: in-progress</span></div>
+          <div class="term-line">  <span class="success">&#10003;</span> Security Agent  <span class="muted">→ CLEAN</span></div>
+          <div class="term-line">  <span class="success">&#10003;</span> Memory Agent    <span class="muted">→ 2 new patterns logged</span></div>
+        </div>
+      </div>
+      <p class="feature-subtext reveal">Four background agents. Zero interruptions. Every commit, your project documents itself.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- HOW IT WORKS -->
+  <!-- ============================================ -->
+  <div class="section-divider reveal"></div>
+  <section class="how-it-works">
+    <div class="how-content">
+      <h2 class="section-heading reveal">How it works</h2>
+      <div class="steps reveal-stagger">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-command">/shiplog init</div>
+          <p class="step-desc">Scaffolds docs, detects your stack, configures agents. 60 seconds.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-command">You build things</div>
+          <p class="step-desc">Claude has full project context every session. No re-explaining.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true">&#8594;</div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-command">Agents run silently</div>
+          <p class="step-desc">Specs, PRD, Security, Memory — updated after every commit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- FINAL CTA -->
+  <!-- ============================================ -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <p class="cta-prose reveal">Stop re-explaining your project.<br>Start building.</p>
+      <div class="cta-install reveal">
+        <div class="install-box install-box-large">
+          <span class="install-prompt">$</span>
+          <span class="install-text">claude plugin install aadivar/shiplog</span>
+          <button class="copy-btn" data-copy="claude plugin install aadivar/shiplog" aria-label="Copy install command">Copy</button>
+        </div>
+      </div>
+      <p class="cta-meta reveal">Free. Open source. All data stays local.</p>
+      <div class="cta-links reveal">
+        <a href="https://github.com/aadivar/shiplog" target="_blank" rel="noopener">GitHub</a>
+        <span class="link-sep" aria-hidden="true">|</span>
+        <a href="https://github.com/aadivar/shiplog/blob/main/README.md" target="_blank" rel="noopener">Docs</a>
+        <span class="link-sep" aria-hidden="true">|</span>
+        <a href="https://github.com/aadivar/shiplog/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Built by <a href="https://github.com/aadivar" target="_blank" rel="noopener">Aadivar</a>. Powered by Claude Code.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+/* ============================================
+   SHIPLOG LANDING PAGE
+   ============================================ */
+
+/* --- Custom Properties --- */
+:root {
+  --bg-primary: #0a0a0b;
+  --bg-surface: #111113;
+  --bg-surface-hover: #1a1a1e;
+
+  --text-primary: #e8e8ed;
+  --text-muted: #6e6e7a;
+  --text-accent: #a78bfa;
+
+  --term-green: #4ade80;
+  --term-yellow: #facc15;
+  --term-red: #f87171;
+  --term-blue: #60a5fa;
+  --term-cyan: #22d3ee;
+  --term-gray: #52525b;
+
+  --progress-fill: #a78bfa;
+  --progress-empty: #27272a;
+
+  --border-subtle: #1e1e23;
+  --border-terminal: #2a2a30;
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* --- Light Theme --- */
+[data-theme="light"] {
+  --bg-primary: #f8f8fa;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f0f0f3;
+
+  --text-primary: #1a1a2e;
+  --text-muted: #6b6b80;
+  --text-accent: #7c3aed;
+
+  --term-green: #16a34a;
+  --term-yellow: #ca8a04;
+  --term-red: #dc2626;
+  --term-blue: #2563eb;
+  --term-cyan: #0891b2;
+  --term-gray: #9ca3af;
+
+  --progress-fill: #7c3aed;
+  --progress-empty: #e5e5ea;
+
+  --border-subtle: #e5e5ea;
+  --border-terminal: #d4d4d8;
+}
+
+[data-theme="light"] body {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+[data-theme="light"] .terminal {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .terminal-glow::before {
+  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, transparent 70%);
+}
+
+[data-theme="light"] .hero-title::after {
+  color: var(--text-accent);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: var(--bg-surface);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+strong {
+  color: var(--text-accent);
+  font-weight: 500;
+}
+
+/* --- Scroll Progress --- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--text-accent);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title::after {
+  content: '\2588';
+  animation: blink 1s step-end infinite;
+  color: var(--text-accent);
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.hero-install {
+  margin-bottom: 4rem;
+}
+
+/* --- Install Box --- */
+.install-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-terminal);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.install-box-large {
+  padding: 1rem 1.5rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid var(--border-terminal);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  transition: color 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.github-link:hover {
+  color: var(--text-accent);
+  border-color: var(--text-accent);
+  opacity: 1;
+}
+
+.install-prompt {
+  color: var(--term-green);
+  flex-shrink: 0;
+}
+
+.install-text {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.copy-btn {
+  flex-shrink: 0;
+  background: var(--bg-surface-hover);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-accent);
+}
+
+.copy-btn.copied {
+  color: var(--term-green);
+  border-color: var(--term-green);
+}
+
+/* --- Theme Toggle --- */
+.theme-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-terminal);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text-accent);
+  border-color: var(--text-accent);
+}
+
+/* Dark mode: show sun, hide moon */
+.icon-moon { display: none; }
+.icon-sun { display: block; }
+
+/* Light mode: show moon, hide sun */
+[data-theme="light"] .icon-moon { display: block; }
+[data-theme="light"] .icon-sun { display: none; }
+
+/* --- Scroll Hint --- */
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============================================
+   FRUSTRATION SECTIONS
+   ============================================ */
+.frustration-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem;
+}
+
+.frustration-content {
+  max-width: 760px;
+  width: 100%;
+}
+
+.frustration-text {
+  margin-bottom: 3rem;
+}
+
+.frustration-prose {
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.frustration-quote {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  font-weight: 400;
+  color: var(--text-accent);
+  line-height: 1.4;
+  min-height: 1.4em;
+  visibility: hidden;
+}
+
+.feature-subtext {
+  margin-top: 2rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   TERMINAL MOCKUP
+   ============================================ */
+.terminal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-terminal);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--term-gray);
+}
+
+.terminal-title {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+}
+
+.terminal-body {
+  padding: 20px 24px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  line-height: 1.7;
+  color: var(--text-primary);
+  overflow-x: auto;
+}
+
+.term-line {
+  white-space: nowrap;
+}
+
+/* Terminal syntax colors */
+.prompt { color: var(--term-green); }
+.command { color: var(--text-primary); }
+.comment { color: var(--term-gray); }
+.accent { color: var(--text-accent); }
+.success { color: var(--term-green); }
+.warning { color: var(--term-yellow); }
+.danger { color: var(--term-red); }
+.info { color: var(--term-blue); }
+.path { color: var(--term-cyan); }
+.muted { color: var(--text-muted); }
+
+/* --- Terminal Glow --- */
+.terminal-glow {
+  position: relative;
+}
+
+.terminal-glow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(ellipse at center, rgba(167, 139, 250, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --- Progress Bar (in terminal) --- */
+.progress-bar {
+  display: inline-block;
+  width: 120px;
+  height: 10px;
+  background: var(--progress-empty);
+  border-radius: 2px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--progress-fill);
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   SECTION DIVIDERS
+   ============================================ */
+.section-divider {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--text-accent), transparent);
+  margin: 0 auto;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-divider.visible {
+  width: 200px;
+}
+
+/* ============================================
+   HOW IT WORKS
+   ============================================ */
+.how-it-works {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem;
+}
+
+.how-content {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.section-heading {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 4rem;
+  letter-spacing: 0.05em;
+}
+
+.steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.step {
+  flex: 1;
+  max-width: 240px;
+  text-align: center;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--text-accent);
+  color: var(--text-accent);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.step-command {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.step-desc {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.step-arrow {
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 600px;
+}
+
+.cta-prose {
+  font-family: var(--font-mono);
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.cta-install {
+  margin-bottom: 2rem;
+}
+
+.cta-meta {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.cta-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+.link-sep {
+  color: var(--term-gray);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.terminal-reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.terminal-reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .frustration-section {
+    min-height: auto;
+    padding: 4rem 1.5rem;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-arrow {
+    transform: rotate(90deg);
+    margin: 0;
+  }
+
+  .terminal-body {
+    padding: 16px;
+    font-size: 0.7rem;
+  }
+
+  .progress-bar {
+    width: 80px;
+  }
+
+  .reveal {
+    transform: translateY(20px);
+  }
+
+  .terminal-reveal {
+    transform: translateY(30px) scale(0.99);
+  }
+
+  .how-it-works {
+    min-height: auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  .frustration-content,
+  .how-content {
+    max-width: 860px;
+  }
+
+  .terminal {
+    max-width: 800px;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .terminal-reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .frustration-quote {
+    visibility: visible !important;
+  }
+
+  .scroll-hint {
+    animation: none;
+  }
+
+  .progress-fill {
+    transition: none;
+  }
+}
