@@ -122,7 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Copy to Clipboard ---
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const text = btn.dataset.copy;
+      let text;
+      if (btn.hasAttribute('data-copy-multiline')) {
+        const lines = btn.closest('.install-box').querySelectorAll('.install-line');
+        text = Array.from(lines).map(l => l.textContent).join('\n');
+      } else {
+        text = btn.dataset.copy;
+      }
       navigator.clipboard.writeText(text).then(() => {
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
