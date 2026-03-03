@@ -21,7 +21,8 @@ Shiplog automatically:
 Run inside a Claude Code session:
 
 ```
-/install-plugin aadivar/shiplog
+/plugin marketplace add aadivar/shiplog
+/plugin install shiplog@shiplog
 ```
 
 ## Quick Start
