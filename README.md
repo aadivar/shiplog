@@ -191,6 +191,35 @@ User works and commits
 └── LICENSE
 ```
 
+## Roadmap
+
+### Done
+- [x] Project initialization with stack detection (`/shiplog init`)
+- [x] Background agents — Specs, PRD, Security, Memory
+- [x] PostToolUse hooks for automatic agent triggering
+- [x] Session context restoration from PROGRESS.md
+- [x] Feature scaffolding (`/shiplog feature`)
+- [x] Sprint management with archival (`/shiplog sprint`)
+- [x] Status dashboard (`/shiplog status`)
+- [x] Custom agent creation (`/shiplog agent`)
+- [x] Configuration management (`/shiplog config`)
+- [x] Manual agent trigger (`/shiplog review`)
+
+### Up Next
+- [ ] Agent output summarization — show a brief digest of what agents found after they complete
+- [ ] `/shiplog diff` — show what changed across sessions in docs
+- [ ] Smarter feature-to-file mapping — agents auto-link features to source files
+- [ ] `/shiplog retro` — generate a sprint retrospective from session logs
+- [ ] Conflict detection — warn when multiple agents edit the same section
+- [ ] Agent performance metrics — track how often agents produce useful entries vs noise
+
+### Future
+- [ ] Team mode — shared docs across contributors with merge-safe formats
+- [ ] CI integration — run security agent in GitHub Actions
+- [ ] Dashboard web UI — visual project status beyond the terminal
+- [ ] Official Anthropic marketplace listing
+- [ ] VS Code / JetBrains extension for Shiplog status in the sidebar
+
 ## Requirements
 
 - Claude Code v1.0+
