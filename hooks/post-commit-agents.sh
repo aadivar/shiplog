@@ -14,23 +14,50 @@ if [ ! -f "$CONFIG" ]; then
   exit 0
 fi
 
+# Use python3 for reliable JSON parsing (available on macOS, most Linux)
+PARSED=$(python3 -c "
+import json, sys
+try:
+    c = json.load(open('$CONFIG'))
+except:
+    sys.exit(1)
+
+# Handle both flat and nested config formats
+# Nested (template): { orchestration: { launchAgentsAfterTask: true }, agents: { model: 'haiku', specs: { enabled: true } } }
+# Flat (legacy):     { agentModel: 'haiku', agents: { specs: true } }
+
 # Check if agent launching is enabled
-launch_enabled=$(grep -o '"launchAgentsAfterTask": *[a-z]*' "$CONFIG" | grep -o 'true\|false')
-if [ "$launch_enabled" != "true" ]; then
+orch = c.get('orchestration', {})
+launch = orch.get('launchAgentsAfterTask', True)  # Default to true if not set
+if not launch:
+    sys.exit(1)
+
+# Get model
+agents = c.get('agents', {})
+if isinstance(agents.get('model'), str):
+    model = agents['model']
+else:
+    model = c.get('agentModel', 'haiku')
+
+# Get agent enabled states — handle both formats
+def is_enabled(key):
+    val = agents.get(key)
+    if isinstance(val, bool):
+        return val
+    if isinstance(val, dict):
+        return val.get('enabled', False)
+    return False
+
+print(f'model={model}')
+print(f'specs={str(is_enabled(\"specs\")).lower()}')
+print(f'prd={str(is_enabled(\"prd\")).lower()}')
+print(f'security={str(is_enabled(\"security\")).lower()}')
+print(f'memory={str(is_enabled(\"memory\")).lower()}')
+" 2>/dev/null)
+
+if [ $? -ne 0 ] || [ -z "$PARSED" ]; then
   exit 0
 fi
-
-# Read agent model
-model=$(grep -o '"model": *"[^"]*"' "$CONFIG" | head -1 | grep -o '"[^"]*"$' | tr -d '"')
-if [ -z "$model" ]; then
-  model="haiku"
-fi
-
-# Check which built-in agents are enabled
-specs_enabled=$(grep -A1 '"specs"' "$CONFIG" | grep -o '"enabled": *[a-z]*' | grep -o 'true\|false')
-prd_enabled=$(grep -A1 '"prd"' "$CONFIG" | grep -o '"enabled": *[a-z]*' | grep -o 'true\|false')
-security_enabled=$(grep -A1 '"security"' "$CONFIG" | grep -o '"enabled": *[a-z]*' | grep -o 'true\|false')
-memory_enabled=$(grep -A1 '"memory"' "$CONFIG" | grep -o '"enabled": *[a-z]*' | grep -o 'true\|false')
 
 # Discover custom agents
 custom_agents=""
@@ -41,13 +68,9 @@ if [ -d ".shiplog/agents" ]; then
   custom_agents="${custom_agents#,}"
 fi
 
-# Output agent launch instructions as a message to Claude
+# Output agent launch instructions
 echo "SHIPLOG_AGENTS_TRIGGER"
-echo "model=$model"
-echo "specs=$specs_enabled"
-echo "prd=$prd_enabled"
-echo "security=$security_enabled"
-echo "memory=$memory_enabled"
+echo "$PARSED"
 if [ -n "$custom_agents" ]; then
   echo "custom=$custom_agents"
 fi
